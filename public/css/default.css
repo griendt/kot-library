@@ -1,0 +1,26 @@
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    min-height: 100vh;
+}
+.content {
+    margin-top: 25px;
+    width: 100%;
+}
+footer {
+    background-color: #f9d6d5;
+    width: 100%;
+}
+
+a {
+    color: #e9605c;
+}
+
+a, a:hover, a:focus {
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+a:hover, a:focus {
+    color: #1f6fb2;
+}
