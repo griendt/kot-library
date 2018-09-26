@@ -3,13 +3,7 @@
 12 september 2018
 @overwrite
 @section('card-detail')
-    This is the second news item. Let's make a new card.
-        <div class="row justify-content-start">
-            <div class="col-md-11">
-                <div class="card">
-                    <div class="card-header"> Header</div>
-                    <div class="card-body"> Content. <strong>Awesome.</strong> </div>
-                </div>
-            </div>
-        </div>
+    @php($maps = json_encode([['blocks' => [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0], 'identifier' => 2, 'isVisible' => true]]))
+    The basic base drawing components are ready. Here's an example.<br>
+    <vue-base :maps="{{ $maps }}"></vue-base>
 @overwrite

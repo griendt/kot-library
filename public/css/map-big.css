@@ -1,0 +1,74 @@
+.map-big-wrapper {
+    background-color: #eee;
+    text-align: left;
+    width: min-content;
+    font-size: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 4px;
+    /*float: right;*/
+    justify-content: space-around;
+    /*align-items: center;*/
+}
+
+.map-big-container {
+    display: grid;
+    grid-template-columns: repeat(7, 32px);
+    grid-template-rows: repeat(4, 32px);
+    grid-gap: 1px;
+    padding: 4px;
+}
+.map-big-checkboxes {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: small;
+    padding: 4px;
+    margin: 4px;
+}
+
+.big-block {
+    border: 1px solid #4c110f;
+    width: 32px;
+    height: 32px;
+}
+.big-block-0 {
+    background-color: #eee;
+}
+.big-block-1 {
+    background-color: #cc7f6d;
+}
+
+/*.list-move {*/
+    /*transition: transform 2s;*/
+/*}*/
+/*.list-enter-active {*/
+    /*transition: all 2s;*/
+/*}*/
+/*.list-leave-active {*/
+    /*transition: all 2s;*/
+/*}*/
+/*.list-enter, .list-leave-to, .list-leave-active {*/
+    /*opacity: 0;*/
+    /*!*display: none;*!*/
+    /*transform: translateY(80px);*/
+/*}*/
+
+/*.list-container {*/
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+/*}*/
+
+.list-big-complete-item {
+    transition: all 1s;
+    display: inline-block;
+    margin-right: 10px;
+}
+.list-big-complete-enter, .list-big-complete-leave-to
+    /* .list-complete-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+}
+.list-big-complete-leave-active {
+    position: absolute;
+}

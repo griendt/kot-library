@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBasesTable extends Migration
+class CreateTrapTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,11 @@ class CreateBasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bases', function (Blueprint $table) {
+        Schema::create('trap_types', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('identifier')->unique();
-            $table->string('map');
-            $table->string('name');
-            $table->boolean('hasGravity')->default(false);
-            $table->boolean('hasTrampoline')->default(false);
-            $table->boolean('hasPlatform')->default(false);
-            $table->boolean('hasDoublePlatform')->default(false);
+            $table->string('type');
         });
     }
 
@@ -33,6 +28,6 @@ class CreateBasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bases');
+        Schema::dropIfExists('trap_types');
     }
 }

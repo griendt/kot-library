@@ -10,21 +10,27 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+{{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
     <script src="{{ asset('js/feedback.js') }}" defer></script>
     <script src="{{ asset('js/sidebar.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    {{--<link rel="dns-prefetch" href="https://fonts.gstatic.com">--}}
+    {{--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">--}}
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/default.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cards.css') }}" rel="stylesheet">
     <link href="{{ asset('css/map.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/map-big.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/trap-icon.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="{{ asset('css/default.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -81,17 +87,19 @@
         @include('includes.sidebar')
             <div class="content">
             {{--<main class="py-4">--}}
+
                 @yield('content')
+
+                <footer class="row">
+                    @include('includes.footer')
+                </footer>
             </div>
             {{--</main>--}}
         </div>
 
-        <footer class="row">
-            @include('includes.footer')
-        </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="{{ asset('js/components/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js"></script>
+    <script src="{{ asset('js/components/vue.js') }}"></script>
 </body>
 </html>

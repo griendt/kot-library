@@ -6,9 +6,9 @@ use App\Base;
 class BaseTableSeeder extends Seeder {
 
     /**
-    * Run the seed.
-    *
-    **/
+     * Run the seed.
+     *
+     **/
     public function run() {
         DB::table('bases')->delete();
 
@@ -92,6 +92,7 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 21,
                 'map' => '0010000,0110000,0000000,1110000',
+                'hasDoublePlatform' => true,
             ],
             [
                 'identifier' => 22,
@@ -140,6 +141,7 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 33,
                 'map' => '0000000,1010101,1000001,0001100',
+                'hasPlatform' => true,
             ],
             [
                 'identifier' => 34,
@@ -160,6 +162,7 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 38,
                 'map' => '0001001,1000000,0000000,1000001',
+                'hasTrampoline' => true,
             ],
             [
                 'identifier' => 39,
@@ -196,6 +199,7 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 47,
                 'map' => '1000001,0000000,0010100,1000001',
+                'hasPlatform' => true,
             ],
             [
                 'identifier' => 48,
@@ -248,14 +252,17 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 61,
                 'map' => '1110000,1100011,1000111,0000001',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 62,
                 'map' => '1100011,1000001,0000000,0000000',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 63,
                 'map' => '0000000,0000000,1100011,1100011',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 64,
@@ -276,6 +283,7 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 68,
                 'map' => '0010000,0010100,0000001,0000000',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 69,
@@ -292,14 +300,17 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 72,
                 'map' => '0111000,0000000,0000011,0111000',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 73,
                 'map' => '0000011,0111000,0111001,1111100',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 74,
                 'map' => '1000010,0011010,0010000,0010000',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 75,
@@ -308,6 +319,7 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 76,
                 'map' => '0000011,0001010,0001000,0001001',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 77,
@@ -316,18 +328,22 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 78,
                 'map' => '0000111,0010000,0000111,0000000',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 79,
                 'map' => '0000001,1110101,1110101,0000001',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 80,
                 'map' => '1000000,1010111,1000000,1000000',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 81,
                 'map' => '1010100,0010000,1000011,1110111',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 82,
@@ -388,6 +404,7 @@ class BaseTableSeeder extends Seeder {
             [
                 'identifier' => 96,
                 'map' => '0000110,0100000,0000110,1100011',
+                'hasGravity' => true,
             ],
             [
                 'identifier' => 97,
@@ -399,7 +416,7 @@ class BaseTableSeeder extends Seeder {
             ],
             [
                 'identifier' => 99,
-                'map' => '0000010,0001000,0000010,0000000',
+                'map' => '0000101,0010001,0000101,0000001',
             ],
             [
                 'identifier' => 100,

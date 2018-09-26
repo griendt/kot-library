@@ -1,6 +1,6 @@
 <div class="map-wrapper">
     @if (isset($identifier))
-        <strong>{{ str_pad($identifier, 3, "0", STR_PAD_LEFT) }}</strong>
+        <p class="list-container">{{ str_pad($identifier, 3, "0", STR_PAD_LEFT) }}</p>
     @endif
     <div class="map-container">
         @foreach ($blocks as $block)

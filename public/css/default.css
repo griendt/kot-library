@@ -5,15 +5,22 @@
 }
 .content {
     margin-top: 25px;
-    width: 100%;
+    width: 80%;
 }
 footer {
-    background-color: #f9d6d5;
+    /*position: absolute;*/
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
+    background-color: transparent;
+    font-size: 12px;
     width: 100%;
 }
 
 a {
-    color: #e9605c;
+    color: #5c605c;
 }
 
 a, a:hover, a:focus {
@@ -23,4 +30,20 @@ a, a:hover, a:focus {
 
 a:hover, a:focus {
     color: #1f6fb2;
+}
+
+.btn {
+    margin: 4px;
+}
+
+@font-face {
+    font-family: 'lacuna';
+    src: url('https://kotlib.net/fonts/lacuna_regular_macroman/open-sans-v15-latin-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-size: 40px;
+}
+
+div {
+    font-family: 'lacuna';
 }
