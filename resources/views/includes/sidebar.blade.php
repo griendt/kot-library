@@ -9,12 +9,12 @@
             $bullets = [
                 route('home') => 'Home',
                 route('content.base') => 'Bases & Layouts',
-                route('content.pattern') => 'Patterns',
-                '/content/saw' => 'Saw Jumps',
-                '/content/game' => 'Game Information',
-                '/external/forum' => 'Forum Threads',
-                '/external/chats' => 'Telegram Chats',
-                '/external/misc' => 'Other Stuff',
+//                route('content.pattern') => 'Patterns',
+//                '/content/saw' => 'Saw Jumps',
+//                '/content/game' => 'Game Information',
+//                '/external/forum' => 'Forum Threads',
+//                '/external/chats' => 'Telegram Chats',
+//                '/external/misc' => 'Other Stuff',
                 route('about') => 'About',
         ];
         foreach ($bullets as $url => $name) {

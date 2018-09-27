@@ -38,11 +38,13 @@ class Base extends Controller
             'detail' => $isBaseDetail,
             'traps' => Trap::get(['name'])->pluck('name'),
             'form' => [
+                'base_identifier' => 'hidden',
                 'Trap 1' => 'select',
                 'Trap 2' => 'text',
                 'Trap 3' => 'text',
                 'Edit mode image' => 'file',
                 'Solution video' => 'file',
+                'Comment' => 'textarea',
             ],
         ]);
     }

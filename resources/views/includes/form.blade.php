@@ -5,7 +5,7 @@
                 <div class="card-header">{{ $header }}</div>
 
 <div class="card-body">
-    <form method="POST" action="{{ route($route) }}">
+    <form method="POST" enctype="multipart/form-data" action="{{ route($route) }}">
         @csrf
 
         @foreach ($fields as $label => $type)
@@ -13,26 +13,34 @@
             $snakeLabel = snake_case($label);
             $isTrapLabel = (isset($icons) && $icons === 'traps' && substr(snake_case($label), 0, 4) === 'trap');
             @endphp
+            @if ($type === 'hidden')
+                <input type="hidden" value="{{ $hidden[$label] }}" name="{{ $snakeLabel }}" id="{{ $snakeLabel }}">
+                @continue
+            @endif
         <div class="form-group row">
             <label for="{{ $snakeLabel }}" class="col-md-4 col-form-label text-md-right">
                 @if ($isTrapLabel)
-                    <vue-trap-icon :traps="{{ json_encode($traps) }}"></vue-trap-icon>
+                    {{--<vue-trap-icon :traps="{{ json_encode($traps) }}"></vue-trap-icon>--}}
                 @endif
                 {{ ucfirst($label) }}</label>
             <div class="col-md-6">
-                @if ($type != 'select')
-                    <input id="{{ $snakeLabel }}" type="{{ $type }}" class="form-control{{ $errors->has($snakeLabel) ? ' is-invalid' : '' }}" name="{{ $snakeLabel }}" value="{{ old($label) }}">
-                @else
-                    <select id="{{ $snakeLabel }}" class="form-control{{ $errors->has($snakeLabel) ? ' is-invalid' : '' }}" name="{{ $snakeLabel }}">
+                 @if ($type === 'select')
+                    <select id="{{ $snakeLabel }}" class="form-control {{ $errors->has($snakeLabel) ? 'is-invalid' : '' }}" name="{{ $snakeLabel }}">
                         @foreach ($selectOptions[$label] as $option)
-                            <option value="{{ snake_case($option) }}" {{ old(snake_case($option)) === snake_case($option) ? 'selected' : 'ba' }}>{{ $option }}</option>
+                            <option value="{{ snake_case($option) }}" {{ old($option) === $option ? 'selected' : 'ba' }}>{{ $option }}</option>
                         @endforeach
                     </select>
-                @endif
-                @if ($errors->has(snake_case($label)))
+                 @elseif ($type === 'textarea')
+                    <textarea id="{{ $snakeLabel }}" type="{{ $type }}" class="form-control{{ $errors->has($snakeLabel) ? ' is-invalid' : '' }}" name="{{ $snakeLabel }}"></textarea>
+
+                 @else
+                    <input id="{{ $snakeLabel }}" type="{{ $type }}" class="form-control{{ $errors->has($snakeLabel) ? ' is-invalid' : '' }}" name="{{ $snakeLabel }}" value="{{ old($snakeLabel) }}">
+                 @endif
+                 @if ($errors->has(snake_case($label)))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first(snake_case($label)) }}</strong>
                     </span>
+
                 @endif
             </div>
         </div>
