@@ -40,35 +40,41 @@ class TrapsTableSeeder extends Seeder {
                 'name'       => 'Seeker Bird',
                 'identifier' => 5,
                 'image_uri'  => 'traps/seeker_bird.png',
-                'trap_type_identifier' => 3, // Stationary
+                'trap_type_identifier' => 3, // Moving
+            ],
+            [
+                'name'       => 'Spinner',
+                'identifier' => 6,
+                'image_uri'  => 'traps/spinner.png',
+                'trap_type_identifier' => 3, // Moving
             ],
             [
                 'name'       => 'Ricochet',
-                'identifier' => 6,
+                'identifier' => 7,
                 'image_uri'  => 'traps/ricochet.png',
                 'trap_type_identifier' => 1, // Stationary
             ],
             [
                 'name'       => 'Lil\' Scorcer',
-                'identifier' => 7,
+                'identifier' => 8,
                 'image_uri'  => 'traps/lil_scorcher.png',
                 'trap_type_identifier' => 1, // Stationary
             ],
             [
                 'name'       => 'Roaster',
-                'identifier' => 8,
+                'identifier' => 9,
                 'image_uri'  => 'traps/roaster.png',
                 'trap_type_identifier' => 1, // Stationary
             ],
             [
                 'name'       => 'Warder',
-                'identifier' => 9,
+                'identifier' => 10,
                 'image_uri'  => 'traps/warder.png',
                 'trap_type_identifier' => 4, // Stationary
             ],
             [
                 'name'       => 'Bloodhound',
-                'identifier' => 10,
+                'identifier' => 11,
                 'image_uri'  => 'traps/bloodhound.png',
                 'trap_type_identifier' => 3, // Stationary
             ],

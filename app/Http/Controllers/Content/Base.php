@@ -33,6 +33,10 @@ class Base extends Controller
                 'isVisible' => true,
             ];
         }
+
+        if (empty ($maps)) {
+            return redirect()->route('home');
+        }
         return view('content-base', [
             'maps' => json_encode($maps),
             'detail' => $isBaseDetail,

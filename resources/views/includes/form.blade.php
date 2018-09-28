@@ -46,6 +46,10 @@
         </div>
         @endforeach
 
+        {{--<div class="progress">--}}
+            {{--<div class="bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>--}}
+        {{--</div>--}}
+
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary">

@@ -194,6 +194,24 @@ var vueTrapIcon = Vue.component('vueTrapIcon', {
     "</div></div>"
 });
 
+var vueLayout = Vue.component('vueLayout', {
+    data: function () {
+        return {}
+    },
+    template:
+    "<div class='row justify-content-start float-none'>" +
+    "<div class='col-md-8'>" +
+    "<div class='card'>" +
+    "<div class='card-header'><small>Base {{ baseIdentifier }}</small> Layout {{ layoutId }}</div>" +
+    "<div class='card-body'>" +
+    "<div class='layout-wrapper'><img src='{{ imageUrl }}'</div>" +
+    "<div class='layout-wrapper'><a href='{{ videoUrl }}'>Video Solution</a></div>" +
+    "</div>" +
+    "</div>" +
+    "</div>" +
+    "</div>"
+});
+
 //////////////////////////////////////////////////
 
 var vm = new Vue({
