@@ -221,6 +221,34 @@ var vueLayout = Vue.component('vueLayout', {
     "</div>"
 });
 
+var vueExploit = Vue.component('vueExploit', {
+    data: function () { return {
+        route_deletion: '/api/exploits/delete',
+        }
+    },
+    props: ['base_identifier', 'exploits', 'csrf_token', 'logged_in'],
+    template:
+    "<div><div v-for='exploit in exploits' class='row justify-content-start float-none'>" +
+    "<div class='col-md-8'>" +
+    "<div class='card'>" +
+    "<div class='card-header'><small>Base {{ base_identifier }}</small> Exploit {{ exploit.id }}</div>" +
+    "<div class='card-body'>" +
+    "<div class='layout-wrapper'><img style='width: 100%; max-width: 600px; max-height: 400px' :src='exploit.exploit_picture' /></div>" +
+    "<a style='float: left' class='btn btn-primary' target='_blank' :href='layout.design_solution'>Video Solution</a>" +
+    "<form v-if='logged_in' method='POST' :action='route_deletion'>" +
+    "<input type='hidden' name='_token' :value='csrf_token'>" +
+    "<input type='hidden' name='base_identifier' :value='base_identifier'>" +
+    "<input type='hidden' name='exploit_od' :value='exploit.id'>" +
+    "<button style='float:left' type='submit' class='btn btn-danger' >Delete Exploit</button></form>" +
+    "</div>" +
+    "</div>" +
+    "</div>" +
+    "</div>" +
+    "</div>"
+});
+
+////////////////////////////////////////
+
 var vueTabs = Vue.component('tabs', {
     template: "<div>" +
     "<ul class='nav nav-tabs'>" +

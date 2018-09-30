@@ -53,13 +53,42 @@
 
             $offenseForm = [
             'base_identifier' => 'hidden',
-            'Solution video' => 'file',
-            'Comment' => 'textarea',
+            'Trap 1' => 'select',
+            'Trap 2' => 'select',
+            'Trap 3' => 'select',
+            'Layout screenshot' => 'file',
+            'Exploit video' => 'file',
+            'Exploit comment' => 'textarea',
             ];
         @endphp
         <tabs>
             <tab label="Exploits" class="tab-pane fade show">
-                @include('includes.card', ['header' => 'Nothing to see here', 'detail' => 'This tab is in development.'])
+                @if (empty(json_decode($exploits)))
+                    @include('includes.card', ['header' => 'No uploads yet ', 'detail' => 'No exploits have been uploaded yet!'])
+                @endif
+                @auth
+                    @php
+                    $optionalTraps = $traps->toArray();
+                    array_unshift($optionalTraps, '-');
+                    @endphp
+                    @include('includes.form', [
+                    'route' => 'exploit.store',
+                    'icons' => 'traps',
+                    'header' => 'Upload Exploit',
+                    'fields' => $offenseForm,
+                    'buttonText' => 'Upload',
+                    'hidden' => [
+                        'base_identifier' => json_decode($maps, true)[0]['identifier'],
+                    ],
+                    'selectOptions' => [
+                        'Trap 1' => $optionalTraps,
+                        'Trap 2' => $optionalTraps,
+                        'Trap 3' => $optionalTraps,
+                        ]
+                    ])
+                @else
+                    <a href="{{ route('login') }}">Log in</a> or <a href="{{ route('register') }}">register</a> to upload exploits!
+                @endauth
             </tab>
             <tab label="Layouts" class="tab-pane fade show">
                 @if (empty(json_decode($layouts)))
@@ -70,7 +99,7 @@
                         'route' => 'layout.store',
                         'icons' => 'traps',
                         'header' => 'Upload Layout',
-                        'fields' => $form,
+                        'fields' => $defenseForm,
                         'buttonText' => 'Upload',
                         'hidden' => [
                             'base_identifier' => json_decode($maps, true)[0]['identifier'],

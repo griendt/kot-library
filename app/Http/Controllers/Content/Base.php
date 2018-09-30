@@ -45,11 +45,18 @@ class Base extends Controller
             $layouts[] = $layout;
         }
 
+        $exploits = [];
+        foreach (\App\LayoutExploit::whereBaseIdentifier(\Request::get('b'))->get() as $exploit) {
+            $exploit->exploit_video = asset($exploit->exploit_video);
+            $exploits[] = $exploit;
+        }
+
         return view('content-base', [
             'maps' => json_encode($maps),
             'detail' => $isBaseDetail,
             'traps' => Trap::get(['name'])->pluck('name'),
             'layouts' => json_encode($layouts),
+            'exploits' => json_encode($exploits),
             'form' => [
                 'base_identifier' => 'hidden',
                 'Trap 1' => 'select',
