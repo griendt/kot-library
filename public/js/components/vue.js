@@ -209,7 +209,7 @@ var vueLayout = Vue.component('vueLayout', {
     "<div class='card-body'>" +
     "<div class='layout-wrapper'><img style='width: 100%; max-width: 600px; max-height: 400px' :src='layout.design_picture' /></div>" +
     "<a style='float: left' class='btn btn-primary' target='_blank' :href='layout.design_solution'>Video Solution</a>" +
-    "<form v-if='logged_in' method='POST' :action='route_deletion'>" +
+    "<form v-if='user_can_delete_layout' method='POST' :action='route_deletion'>" +
     "<input type='hidden' name='_token' :value='csrf_token'>" +
     "<input type='hidden' name='base_identifier' :value='base_identifier'>" +
     "<input type='hidden' name='layout_id' :value='layout.id'>" +
@@ -223,7 +223,7 @@ var vueLayout = Vue.component('vueLayout', {
 
 var vueExploit = Vue.component('vueExploit', {
     data: function () { return {
-        route_deletion: '/api/exploits/delete',
+        route_deletion: '/api/exploit/delete',
         }
     },
     props: ['base_identifier', 'exploits', 'csrf_token', 'logged_in'],
@@ -233,12 +233,12 @@ var vueExploit = Vue.component('vueExploit', {
     "<div class='card'>" +
     "<div class='card-header'><small>Base {{ base_identifier }}</small> Exploit {{ exploit.id }}</div>" +
     "<div class='card-body'>" +
-    "<div class='layout-wrapper'><img style='width: 100%; max-width: 600px; max-height: 400px' :src='exploit.exploit_picture' /></div>" +
-    "<a style='float: left' class='btn btn-primary' target='_blank' :href='layout.design_solution'>Video Solution</a>" +
-    "<form v-if='logged_in' method='POST' :action='route_deletion'>" +
+    "<div class='layout-wrapper'><img style='width: 100%; max-width: 600px; max-height: 400px' :src='exploit.layout_screenshot' /></div>" +
+    "<a style='float: left' class='btn btn-primary' target='_blank' :href='exploit.exploit_video'>Video Solution</a>" +
+    "<form v-if='user_can_delete_exploit' method='POST' :action='route_deletion'>" +
     "<input type='hidden' name='_token' :value='csrf_token'>" +
     "<input type='hidden' name='base_identifier' :value='base_identifier'>" +
-    "<input type='hidden' name='exploit_od' :value='exploit.id'>" +
+    "<input type='hidden' name='layout_exploit_id' :value='exploit.id'>" +
     "<button style='float:left' type='submit' class='btn btn-danger' >Delete Exploit</button></form>" +
     "</div>" +
     "</div>" +
@@ -312,6 +312,7 @@ var vm = new Vue({
         VueLayout: vueLayout,
         VueTab: vueTab,
         VueTabs: vueTabs,
+        VueExploit: vueExploit,
     },
     ready: function () {
     }

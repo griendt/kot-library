@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BaseTableSeeder::class);
         $this->call(TrapTypesTableSeeder::class);
         $this->call(TrapsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
     }
 }

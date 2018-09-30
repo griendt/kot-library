@@ -47,6 +47,7 @@ class Base extends Controller
 
         $exploits = [];
         foreach (\App\LayoutExploit::whereBaseIdentifier(\Request::get('b'))->get() as $exploit) {
+            $exploit->layout_screenshot = asset($exploit->layout_screenshot);
             $exploit->exploit_video = asset($exploit->exploit_video);
             $exploits[] = $exploit;
         }

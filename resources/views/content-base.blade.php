@@ -72,6 +72,7 @@
                     array_unshift($optionalTraps, '-');
                     @endphp
                     @include('includes.form', [
+                    'border' => 'border-info',
                     'route' => 'exploit.store',
                     'icons' => 'traps',
                     'header' => 'Upload Exploit',
@@ -89,6 +90,14 @@
                 @else
                     <a href="{{ route('login') }}">Log in</a> or <a href="{{ route('register') }}">register</a> to upload exploits!
                 @endauth
+                @if (!empty(json_decode($exploits)))
+                    <vue-exploit
+                            :base_identifier="{{ json_decode($maps, true)[0]['identifier'] }}"
+                            :exploits="{{ $exploits }}"
+                            :csrf_token="{{ json_encode(csrf_token()) }}"
+                            :user_can_delete_exploit="{{ json_encode(Auth::check()) }}"
+                    ></vue-exploit>
+                @endif
             </tab>
             <tab label="Layouts" class="tab-pane fade show">
                 @if (empty(json_decode($layouts)))
@@ -96,6 +105,7 @@
                 @endif
                     @auth
                         @include('includes.form', [
+                        'border' => 'border-success',
                         'route' => 'layout.store',
                         'icons' => 'traps',
                         'header' => 'Upload Layout',
@@ -113,12 +123,12 @@
                     @else
                         <a href="{{ route('login') }}">Log in</a> or <a href="{{ route('register') }}">register</a> to upload layouts!
                     @endauth
-                @if (empty(json_decode($layouts)))
+                @if (!empty(json_decode($layouts)))
                     <vue-layout
                         :base_identifier="{{ json_decode($maps, true)[0]['identifier'] }}"
                         :layouts="{{ $layouts }}"
                         :csrf_token="{{ json_encode(csrf_token()) }}"
-                        :logged_in="{{ json_encode(Auth::check()) }}"
+                        :user_can_delete_layout="{{ json_encode(Auth::check()) }}"
                         ></vue-layout>
                 @endif
             </tab>

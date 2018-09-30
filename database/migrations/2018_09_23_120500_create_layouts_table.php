@@ -22,7 +22,7 @@ class CreateLayoutsTable extends Migration
             $table->integer('trap_3_identifier');
             $table->string('design_picture');
             $table->string('design_solution');
-            $table->string('design_comment');
+            $table->string('design_comment')->nullable();
         });
 
         Schema::table('layouts', function (Blueprint $table) {
