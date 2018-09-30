@@ -200,7 +200,7 @@ var vueLayout = Vue.component('vueLayout', {
             route_deletion: '/api/layouts/delete',
         }
     },
-    props:['base_identifier', 'layouts', 'csrf_token', 'logged_in'],
+    props:['base_identifier', 'layouts', 'csrf_token', 'user_can_delete_layout'],
     template:
     "<div><div v-for='layout in layouts' class='row justify-content-start float-none'>" +
     "<div class='col-md-8'>" +
@@ -226,7 +226,7 @@ var vueExploit = Vue.component('vueExploit', {
         route_deletion: '/api/exploit/delete',
         }
     },
-    props: ['base_identifier', 'exploits', 'csrf_token', 'logged_in'],
+    props: ['base_identifier', 'exploits', 'csrf_token', 'user_can_delete_exploit'],
     template:
     "<div><div v-for='exploit in exploits' class='row justify-content-start float-none'>" +
     "<div class='col-md-8'>" +

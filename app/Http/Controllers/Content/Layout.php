@@ -36,9 +36,16 @@ class Layout extends Controller
             'trap2' => 'required|string',
             'trap3' => 'required|string',
             'edit_mode_image' => 'required|image',
-            'solution_video' => 'required|file',
+            'solution_you_tube' => 'nullable|string',
+            'solution_video' => 'nullable|file',
             'comment' => 'string|nullable',
         ]);
+
+        if (is_null($request->input('solution_you_tube')) && is_null($request->input('solution_video'))) {
+            return redirect()->back()->with('fail', 'No video nor YouTube link supplied!');
+        }
+
+        dd($request->all());
         $exceptions = [];
 
         $imageName = '';

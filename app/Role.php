@@ -20,4 +20,8 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     protected $guarded = [];
+
+    public function isAdmin() {
+        return $this->identifier === 'admin';
+    }
 }

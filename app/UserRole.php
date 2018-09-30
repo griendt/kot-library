@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property bool $active
  * @property int $role_id
+ * @property Role $role
  * @property int $user_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LayoutExploit whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LayoutExploit whereRoleId($value)
@@ -23,4 +24,12 @@ use Illuminate\Database\Eloquent\Model;
 class UserRole extends Model
 {
     protected $guarded = [];
+
+    public function isAdmin() {
+        return $this->role->isAdmin();
+    }
+
+    public function role() {
+        return $this->belongsTo('App\Role');
+    }
 }

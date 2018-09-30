@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Home</h1>
+    <h2>Home</h2>
 
     {{ trans('Welcome!') }}
     @php($page = 'home')
 
-    <h2>News</h2>
+    <h3>News</h3>
     @foreach ($news as $new)
         @include('news.'.$new)
     @endforeach

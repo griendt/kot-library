@@ -48,6 +48,7 @@
             'Trap 3' => 'select',
             'Edit mode image' => 'file',
             'Solution video' => 'file',
+            'Solution YouTube' => 'text',
             'Comment' => 'textarea',
             ];
 
@@ -58,6 +59,7 @@
             'Trap 3' => 'select',
             'Layout screenshot' => 'file',
             'Exploit video' => 'file',
+            'Exploit YouTube' => 'text',
             'Exploit comment' => 'textarea',
             ];
         @endphp
@@ -73,6 +75,8 @@
                     @endphp
                     @include('includes.form', [
                     'border' => 'border-info',
+                    'id' => 'exploitForm',
+                    'explanation' => 'An <strong>Exploit</strong> gives information on how to beat a given base and arrangement of traps. This includes clever potion use. Please leave commentary in the comments box explaining how the Exploit works and what to look out for when attempting the Exploit.<br><strong>*</strong> Either upload a video directly to the site, or give a link to a YouTube video. If you use both, only the YouTube link will be used!<hr>',
                     'route' => 'exploit.store',
                     'icons' => 'traps',
                     'header' => 'Upload Exploit',
@@ -95,7 +99,7 @@
                             :base_identifier="{{ json_decode($maps, true)[0]['identifier'] }}"
                             :exploits="{{ $exploits }}"
                             :csrf_token="{{ json_encode(csrf_token()) }}"
-                            :user_can_delete_exploit="{{ json_encode(Auth::check()) }}"
+                            :user_can_delete_exploit="{{ json_encode(Auth::user()->isAdmin()) }}"
                     ></vue-exploit>
                 @endif
             </tab>
@@ -105,7 +109,9 @@
                 @endif
                     @auth
                         @include('includes.form', [
-                        'border' => 'border-success',
+                        'border' => 'border-warning',
+                        'id' => 'layoutForm',
+                        'explanation' => "A <strong>Layout</strong> is an arrangement of traps in a base. It should not show how to defeat such a base through clever use of potions; instead, a Layout shows how to save the arrangement in the first place.<br><strong>*</strong> Either upload a video directly to the site, or give a link to a YouTube video. If you use both, only the YouTube link will be used!<hr>",
                         'route' => 'layout.store',
                         'icons' => 'traps',
                         'header' => 'Upload Layout',
@@ -128,7 +134,7 @@
                         :base_identifier="{{ json_decode($maps, true)[0]['identifier'] }}"
                         :layouts="{{ $layouts }}"
                         :csrf_token="{{ json_encode(csrf_token()) }}"
-                        :user_can_delete_layout="{{ json_encode(Auth::check()) }}"
+                        :user_can_delete_layout="{{ json_encode(Auth::user()->isAdmin()) }}"
                         ></vue-layout>
                 @endif
             </tab>

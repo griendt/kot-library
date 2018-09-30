@@ -16,6 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
+ * @property Role[] $roles
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -51,6 +52,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function roles() {
+        return $this->hasMany('App\UserRole');
+    }
+
+    /**
+     * Returns whether the user has a role that makes him admin.
+     * @return bool
+     */
+    public function isAdmin() {
+        foreach ($this->roles as $role) {
+            if ($role->isAdmin()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public function sendPasswordResetNotification($token)
     {

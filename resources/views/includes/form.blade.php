@@ -1,10 +1,23 @@
-{{--<div class="container">--}}
+<div id="{{ $id }}Accordion">
     <div class="row justify-content-start float-none">
         <div class="col-md-8">
             <div class="card {{ $border ?? '' }}">
-                <div class="card-header">{{ $header }}</div>
+                <div class="card-header" id="{{ $id }}Header">
+                    <button
+                            class="btn btn-link"
+                            data-toggle="collapse"
+                            data-target="#{{ $id }}Card"
+                            aria-expanded="true"
+                            aria-controls="{{ $id }}Card">
+                        {{ $header }}
+                    </button>
+                </div>
 
+<div style='overflow: hidden' id="{{ $id }}Card" class="collapse show in" aria-labelledby="{{ $id }}Header" data-parent="#{{ $id }}Accordion">
 <div class="card-body">
+    @if(isset($explanation))
+        {!! $explanation !!}<br>
+    @endif
     <form method="POST" enctype="multipart/form-data" action="{{ route($route) }}">
         @csrf
 
@@ -62,4 +75,5 @@
 </div>
 </div>
 </div>
-{{--</div>--}}
+</div>
+</div>
