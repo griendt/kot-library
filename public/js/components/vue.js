@@ -205,7 +205,7 @@ var vueLayout = Vue.component('vueLayout', {
     "<div><div v-for='layout in layouts' class='row justify-content-start float-none'>" +
     "<div class='col-md-8'>" +
     "<div class='card'>" +
-    "<div class='card-header'><small>Base {{ base_identifier }}</small> Layout {{ layout.id }}</div>" +
+    "<div class='card-header'><small>Base {{ base_identifier }}</small> | Layout #{{ layout.id }} | Uploaded by: {{ layout.uploader_user_name }}</div>" +
     "<div class='card-body'>" +
     "<div class='layout-wrapper'><img style='width: 100%; max-width: 600px; max-height: 400px' :src='layout.design_picture' /></div>" +
     "<a style='float: left' class='btn btn-primary' target='_blank' :href='layout.design_solution'>Video Solution</a>" +

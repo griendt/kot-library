@@ -44,12 +44,15 @@ class Layout extends Controller
         if (is_null($request->input('solution_you_tube')) && is_null($request->input('solution_video'))) {
             return redirect()->back()->with('fail', 'No video nor YouTube link supplied!');
         }
-
-        dd($request->all());
+        if (strpos($request->input('solution_you_tube'), 'youtube') === false && strpos($request->input('solution_you_tube'), 'you.tube') === false) {
+            return redirect()->back()->with('fail', 'Link provided was not a YouTube link!');
+        }
         $exceptions = [];
 
         $imageName = '';
         $videoName = '';
+        $videoIsYoutube = false;
+
         if ($request->hasFile('edit_mode_image')) {
             try {
                 $file = $request->file('edit_mode_image');
@@ -61,7 +64,7 @@ class Layout extends Controller
             }
         }
 
-        if ($request->hasFile('solution_video')) {
+        if ($request->hasFile('solution_video') && is_null($request->input('solution_you_tube'))) {
             try {
                 $file = $request->file('solution_video');
                 $videoName = 'layout_' . Auth::user()->username . '_' . date('Y-m-dHis_v') . '_solution.' . $file->getClientOriginalExtension();
@@ -70,6 +73,13 @@ class Layout extends Controller
             catch (\Exception $error) {
                 $exceptions[] = $error;
             }
+        }
+        elseif (!empty($request->input('solution_you_tube'))) {
+            $videoName = $request->input('solution_you_tube');
+            if (strpos($videoName, '://') === false) {
+                $videoName = "https://" . $videoName;
+            }
+            $videoIsYoutube = true;
         }
 
         if (empty($exceptions)) {
@@ -84,8 +94,9 @@ class Layout extends Controller
                 'trap_2_identifier' => Trap::whereName($trapNames['trap2'])->first()->identifier,
                 'trap_3_identifier' => Trap::whereName($trapNames['trap3'])->first()->identifier,
                 'design_picture' => 'storage/layouts/' . $imageName,
-                'design_solution' => 'storage/layouts/' . $videoName,
-                'design_comment' => $request->input('design_comment')
+                'design_solution' => $videoIsYoutube ? $videoName : 'storage/layouts/' . $videoName,
+                'design_comment' => $request->input('design_comment'),
+                'uploader_user_name' => Auth::user()->username,
             ]);
         }
 
