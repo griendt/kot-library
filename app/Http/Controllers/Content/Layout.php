@@ -4,11 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Trap;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Layout as LayoutModel;
 use Auth;
 
 class Layout extends Controller
 {
+
+    public function delete(Request $request) {
+        if (!Auth::user()) {
+            return redirect()->back()->withInput()->with('fail', 'You are not authorised to delete this layout!');
+        }
+        else {
+            $layout =  LayoutModel::whereId($request->input('layout_id'))->first();
+            if (!$layout) {
+                return redirect()->back()->withInput()->with('fail', 'Layout could not be found!');
+            }
+            $image = public_path($layout->design_picture);
+            $video = public_path($layout->design_solution);
+            $layout->delete();
+            \File::delete([$image, $video]);
+
+            return redirect()->back()->withInput()->with('success', 'Layout was successfully deleted.');
+        }
+    }
 
     public function store(Request $request) {
 
@@ -53,18 +71,18 @@ class Layout extends Controller
                 'trap2' => str_replace('_', ' ', title_case($request->input('trap2'))),
                 'trap3' => str_replace('_', ' ', title_case($request->input('trap3')))
             ];
-            \App\Layout::create([
+            LayoutModel::create([
                 'base_identifier' => $request->input('base_identifier'),
                 'trap_1_identifier' => Trap::whereName($trapNames['trap1'])->first()->identifier,
                 'trap_2_identifier' => Trap::whereName($trapNames['trap2'])->first()->identifier,
                 'trap_3_identifier' => Trap::whereName($trapNames['trap3'])->first()->identifier,
-                'design_picture' => $imageName,
-                'design_solution' => $videoName,
+                'design_picture' => 'storage/layouts/' . $imageName,
+                'design_solution' => 'storage/layouts/' . $videoName,
                 'design_comment' => $request->input('design_comment')
             ]);
         }
 
-        return redirect()->back()->withInput()->with('successfulUpload', 'File uploaded successfully!');
+        return redirect()->back()->withInput()->with('success', 'File uploaded successfully!');
     }
 
 }

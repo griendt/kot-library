@@ -37,10 +37,19 @@ class Base extends Controller
         if (empty ($maps)) {
             return redirect()->route('home');
         }
+
+        $layouts = [];
+        foreach (\App\Layout::whereBaseIdentifier(\Request::get('b'))->get() as $layout) {
+            $layout->design_picture = asset($layout->design_picture);
+            $layout->design_solution = asset($layout->design_solution);
+            $layouts[] = $layout;
+        }
+
         return view('content-base', [
             'maps' => json_encode($maps),
             'detail' => $isBaseDetail,
             'traps' => Trap::get(['name'])->pluck('name'),
+            'layouts' => json_encode($layouts),
             'form' => [
                 'base_identifier' => 'hidden',
                 'Trap 1' => 'select',

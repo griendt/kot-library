@@ -32,6 +32,13 @@ a:hover, a:focus {
     color: #1f6fb2;
 }
 
+.credits {
+    float: right;
+    border-radius: 4px;
+    border: 1px dotted #ddd;
+    padding: 4px;
+}
+
 .btn {
     margin: 4px;
 }

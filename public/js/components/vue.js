@@ -196,20 +196,78 @@ var vueTrapIcon = Vue.component('vueTrapIcon', {
 
 var vueLayout = Vue.component('vueLayout', {
     data: function () {
-        return {}
+        return {
+            route_deletion: '/api/layouts/delete',
+        }
     },
+    props:['base_identifier', 'layouts', 'csrf_token', 'logged_in'],
     template:
-    "<div class='row justify-content-start float-none'>" +
+    "<div><div v-for='layout in layouts' class='row justify-content-start float-none'>" +
     "<div class='col-md-8'>" +
     "<div class='card'>" +
-    "<div class='card-header'><small>Base {{ baseIdentifier }}</small> Layout {{ layoutId }}</div>" +
+    "<div class='card-header'><small>Base {{ base_identifier }}</small> Layout {{ layout.id }}</div>" +
     "<div class='card-body'>" +
-    "<div class='layout-wrapper'><img src='{{ imageUrl }}'</div>" +
-    "<div class='layout-wrapper'><a href='{{ videoUrl }}'>Video Solution</a></div>" +
+    "<div class='layout-wrapper'><img style='width: 100%; max-width: 600px; max-height: 400px' :src='layout.design_picture' /></div>" +
+    "<a style='float: left' class='btn btn-primary' target='_blank' :href='layout.design_solution'>Video Solution</a>" +
+    "<form v-if='logged_in' method='POST' :action='route_deletion'>" +
+    "<input type='hidden' name='_token' :value='csrf_token'>" +
+    "<input type='hidden' name='base_identifier' :value='base_identifier'>" +
+    "<input type='hidden' name='layout_id' :value='layout.id'>" +
+    "<button style='float:left' type='submit' class='btn btn-danger' >Delete Layout</button></form>" +
+    "</div>" +
     "</div>" +
     "</div>" +
     "</div>" +
     "</div>"
+});
+
+var vueTabs = Vue.component('tabs', {
+    template: "<div>" +
+    "<ul class='nav nav-tabs'>" +
+    "<li v-for=\"(tab, index) in tabs\" class='nav-item'><a href='#' class='nav-link' :class=\"{ active: (activeTab === tab || (activeTab === '' && index === 0)) }\" @click=\"activate(tab)\">{{ tab }}</a></li>" +
+    "</ul><slot></slot>" +
+    "</div>",
+    data: function() {
+        return {
+            activeTab: '',
+            tabs: []
+        }
+    },
+    methods: {
+        activate: function(tab) {
+            this.activeTab = tab;
+            this.$emit('activateTab', tab);
+        }
+    },
+    created: function() {
+        this.$emit('activateTab', this.tabs[0]);
+    }
+});
+
+var vueTab = Vue.component('tab', {
+    props: ['label', 'selected'],
+    template: "<div v-show='visible'><slot></slot></div>",
+
+    created: function() {
+        var self = this;
+        if ((typeof this.selected !== 'undefined' && this.selected === '') || (this.$parent.$data.tabs.length === 0)) {
+            this.$parent.$data.activeTab = this.label;
+            this.visible = true;
+        }
+        this.$parent.$data.tabs.push(this.label);
+        this.$parent.$on('activateTab', function(tab) {
+            if (self.label === tab) {
+                self.visible = true;
+            } else {
+                self.visible = false;
+            }
+        })
+    },
+    data: function() {
+        return {
+            visible: false
+        }
+    },
 });
 
 //////////////////////////////////////////////////
@@ -222,7 +280,10 @@ var vm = new Vue({
     components: {
         VueBase: vueBase,
         VueBigBase: vueBigBase,
-        VueTrapIcon: vueTrapIcon
+        VueTrapIcon: vueTrapIcon,
+        VueLayout: vueLayout,
+        VueTab: vueTab,
+        VueTabs: vueTabs,
     },
     ready: function () {
     }

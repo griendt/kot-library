@@ -39,3 +39,7 @@ Route::get('/content/pattern', function() {
 
 Route::post('/layout/store', 'Layout@store')
     ->name('layout.store');
+
+
+Route::post('/api/layouts/delete', 'Layout@delete')
+    ->name('api.layouts.delete');
