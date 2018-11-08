@@ -16,10 +16,6 @@
         </div>
     @endif
 
-    @php
-        $names = ['Lyca36', 'JayMonRabe', 'fezzik_king'];
-    @endphp
-    @include('includes.credits')
     @if ($detail)
         <vue-base style='float: right' :maps="{{ $maps }}"></vue-base>
     @endif
@@ -62,19 +58,19 @@
             'Exploit YouTube' => 'text',
             'Exploit comment' => 'textarea',
             ];
+
+            $exploitsCount = count(json_decode($exploits, true));
+            $layoutsCount = count(json_decode($layouts, true));
         @endphp
         <tabs>
-            <tab label="Exploits" class="tab-pane fade show">
-                @if (empty(json_decode($exploits)))
-                    @include('includes.card', ['header' => 'No uploads yet ', 'detail' => 'No exploits have been uploaded yet!'])
-                @endif
+            <tab label="Exploits ({{ $exploitsCount }})" class="tab-pane fade show">
                 @auth
                     @php
                     $optionalTraps = $traps->toArray();
                     array_unshift($optionalTraps, '-');
                     @endphp
                     @include('includes.form', [
-                    'border' => 'border-info',
+                    'border' => 'f2304a',
                     'id' => 'exploitForm',
                     'explanation' => 'An <strong>Exploit</strong> gives information on how to beat a given base and arrangement of traps. This includes clever potion use. Please leave commentary in the comments box explaining how the Exploit works and what to look out for when attempting the Exploit.<br><strong>*</strong> Either upload a video directly to the site, or give a link to a YouTube video. If you use both, only the YouTube link will be used!<hr>',
                     'route' => 'exploit.store',
@@ -94,22 +90,23 @@
                 @else
                     <a href="{{ route('login') }}">Log in</a> or <a href="{{ route('register') }}">register</a> to upload exploits!
                 @endauth
+                @if (empty(json_decode($exploits)))
+                    @include('includes.card', ['header' => 'No uploads yet ', 'detail' => 'No exploits have been uploaded yet!'])
+                @endif
                 @if (!empty(json_decode($exploits)))
                     <vue-exploit
                             :base_identifier="{{ json_decode($maps, true)[0]['identifier'] }}"
                             :exploits="{{ $exploits }}"
                             :csrf_token="{{ json_encode(csrf_token()) }}"
-                            :user_can_delete_exploit="{{ json_encode(Auth::user()->isAdmin()) }}"
+                            :user_can_delete_exploit="{{ json_encode(is_null(Auth::user()) ? false : Auth::user()->isAdmin()) }}"
                     ></vue-exploit>
                 @endif
             </tab>
-            <tab label="Layouts" class="tab-pane fade show">
-                @if (empty(json_decode($layouts)))
-                    @include('includes.card', ['header' => 'No uploads yet ', 'detail' => 'No layouts have been uploaded yet!'])
-                @endif
+            <tab label="Layouts ({{ $layoutsCount }})" class="tab-pane fade show">
+
                     @auth
                         @include('includes.form', [
-                        'border' => 'border-warning',
+                        'border' => '1f6fb2',
                         'id' => 'layoutForm',
                         'explanation' => "A <strong>Layout</strong> is an arrangement of traps in a base. It should not show how to defeat such a base through clever use of potions; instead, a Layout shows how to save the arrangement in the first place.<br><strong>*</strong> Either upload a video directly to the site, or give a link to a YouTube video. If you use both, only the YouTube link will be used!<hr>",
                         'route' => 'layout.store',
@@ -134,10 +131,17 @@
                         :base_identifier="{{ json_decode($maps, true)[0]['identifier'] }}"
                         :layouts="{{ $layouts }}"
                         :csrf_token="{{ json_encode(csrf_token()) }}"
-                        :user_can_delete_layout="{{ json_encode(Auth::user()->isAdmin()) }}"
+                        :user_can_delete_layout="{{ json_encode(is_null(Auth::user()) ? false : Auth::user()->isAdmin()) }}"
                         ></vue-layout>
+                @else
+                    @include('includes.card', ['header' => 'No uploads yet ', 'detail' => 'No layouts have been uploaded yet!'])
                 @endif
             </tab>
         </tabs>
     @endif
+
+    @php
+        $names = ['Lyca36', 'Alefire', 'fezzik_king', 'JayMonRabe'];
+    @endphp
+    @include('includes.credits')
 @stop

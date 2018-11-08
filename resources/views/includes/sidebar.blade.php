@@ -14,7 +14,7 @@
 //                '/content/game' => 'Game Information',
 //                '/external/forum' => 'Forum Threads',
 //                '/external/chats' => 'Telegram Chats',
-//                '/external/misc' => 'Other Stuff',
+                route('stats') => 'Site Stats',
                 route('about') => 'About',
         ];
         foreach ($bullets as $url => $name) {

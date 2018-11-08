@@ -1,5 +1,5 @@
 <div class="credits">
-    Thanks to:<br>
+    Special thanks to:<br>
     <ul>
     @foreach ($names as $name)
         <li> {!! tme($name) !!}</li>

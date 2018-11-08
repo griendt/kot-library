@@ -30,6 +30,9 @@ Route::get('contact', function() {
     return view('contact');
 })->name('contact');
 
+Route::get('stats', 'StatsController@index')
+    ->name('stats');
+
 Route::get('/content/base', 'Base@index')
     ->name('content.base');
 

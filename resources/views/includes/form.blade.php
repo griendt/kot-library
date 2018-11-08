@@ -1,7 +1,7 @@
 <div id="{{ $id }}Accordion">
     <div class="row justify-content-start float-none">
         <div class="col-md-8">
-            <div class="card {{ $border ?? '' }}">
+            <div class="card" style="border: 1px solid #{{ $border ?? 'ddd' }}">
                 <div class="card-header" id="{{ $id }}Header">
                     <button
                             class="btn btn-link"
@@ -13,7 +13,7 @@
                     </button>
                 </div>
 
-<div style='overflow: hidden' id="{{ $id }}Card" class="collapse show in" aria-labelledby="{{ $id }}Header" data-parent="#{{ $id }}Accordion">
+<div style='overflow: hidden; height: 0px' id="{{ $id }}Card" class="collapse show" aria-labelledby="{{ $id }}Header" data-parent="#{{ $id }}Accordion">
 <div class="card-body">
     @if(isset($explanation))
         {!! $explanation !!}<br>

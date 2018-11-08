@@ -41,10 +41,11 @@ class Layout extends Controller
             'comment' => 'string|nullable',
         ]);
 
-        if (is_null($request->input('solution_you_tube')) && is_null($request->input('solution_video'))) {
+        if (is_null($request->input('solution_you_tube')) && !$request->hasFile('solution_video')) {
+            dd($request->all());
             return redirect()->back()->with('fail', 'No video nor YouTube link supplied!');
         }
-        if (strpos($request->input('solution_you_tube'), 'youtube') === false && strpos($request->input('solution_you_tube'), 'you.tube') === false) {
+        if (!$request->hasFile('solution_video') && strpos($request->input('solution_you_tube'), 'youtube') === false && strpos($request->input('solution_you_tube'), 'youtu.be') === false) {
             return redirect()->back()->with('fail', 'Link provided was not a YouTube link!');
         }
         $exceptions = [];
@@ -95,7 +96,7 @@ class Layout extends Controller
                 'trap_3_identifier' => Trap::whereName($trapNames['trap3'])->first()->identifier,
                 'design_picture' => 'storage/layouts/' . $imageName,
                 'design_solution' => $videoIsYoutube ? $videoName : 'storage/layouts/' . $videoName,
-                'design_comment' => $request->input('design_comment'),
+                'design_comment' => $request->input('comment'),
                 'uploader_user_name' => Auth::user()->username,
             ]);
         }
