@@ -9,6 +9,7 @@
             $bullets = [
                 route('home') => 'Home',
                 route('content.base') => 'Bases & Layouts',
+                route('content.info') => 'Game Information',
 //                route('content.pattern') => 'Patterns',
 //                '/content/saw' => 'Saw Jumps',
 //                '/content/game' => 'Game Information',

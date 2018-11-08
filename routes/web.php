@@ -49,3 +49,6 @@ Route::post('/exploit/store', 'LayoutExploit@store')
     ->name('exploit.store');
 Route::post('/api/exploit/delete', 'LayoutExploit@delete')
     ->name('api.exploit.delete');
+
+Route::get('/content/info', 'Info@index')
+    ->name('content.info');
