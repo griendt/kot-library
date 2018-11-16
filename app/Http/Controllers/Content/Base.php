@@ -39,14 +39,14 @@ class Base extends Controller
         }
 
         $layouts = [];
-        foreach (\App\Layout::whereBaseIdentifier(\Request::get('b'))->get() as $layout) {
+        foreach (\App\Layout::whereBaseIdentifier(\Request::get('b'))->orderByDesc('created_at')->get() as $layout) {
             $layout->design_picture = asset($layout->design_picture);
             $layout->design_solution = asset($layout->design_solution);
             $layouts[] = $layout;
         }
 
         $exploits = [];
-        foreach (\App\LayoutExploit::whereBaseIdentifier(\Request::get('b'))->get() as $exploit) {
+        foreach (\App\LayoutExploit::whereBaseIdentifier(\Request::get('b'))->orderByDesc('created_at')->get() as $exploit) {
             $exploit->layout_screenshot = asset($exploit->layout_screenshot);
             $exploit->exploit_video = asset($exploit->exploit_video);
             $exploits[] = $exploit;

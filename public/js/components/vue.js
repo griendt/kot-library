@@ -302,6 +302,17 @@ var vueTab = Vue.component('tab', {
     },
 });
 
+var vueOrb = Vue.component('orb', {
+    template: "<div><img :src='url'/><slot></slot></div>",
+    created: function() {
+        this.url = 'traps/red_guard.png'
+    },
+    data: function() {
+        return {
+            url: false
+        }
+    }
+});
 //////////////////////////////////////////////////
 
 var vm = new Vue({
@@ -317,6 +328,7 @@ var vm = new Vue({
         VueTab: vueTab,
         VueTabs: vueTabs,
         VueExploit: vueExploit,
+        VueOrb: vueOrb,
     },
     ready: function () {
     }

@@ -19,13 +19,16 @@
     @if ($detail)
         <vue-base style='float: right' :maps="{{ $maps }}"></vue-base>
     @endif
-    <h2>Bases
+    <div>
+        <h2>Bases
         @if ($detail)
-            <a href="{{ route('content.base') }}" class="btn-secondary btn">
+            <div class="vr"></div>
+            <div style="display: inline"><a href="{{ route('content.base') }}" class="btn-secondary btn">
                 <i class="fa fa-arrow-left"></i> Back
-            </a>
+            </a></div>
         @endif
-    </h2>
+        </h2>
+    </div>
     Here you can find a collection of all currently known bases with their numbers.<br>
     Use the panel below to filter the set of bases by the blocks and items that are in them.<br>
     Click on a base to view a detailed page.<br>

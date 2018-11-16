@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Trap;
 use Illuminate\Http\Request;
-use App\Base as BaseModel;
 
 class Info extends Controller
 {
