@@ -1,43 +1,46 @@
 var vueBase = Vue.component('vueBase', {
     data: function () {
-        return { };
+        return {
+            visible_maps: new Array(this.maps.length+1).join('1').split('')
+        };
     },
-    props: ['mapsreceived', 'maps'],
+    props: ['maps'],
     methods: {
         detail: function(mapIndex) {
-            console.log('Map ' + this.maps[mapIndex].identifier + ' clicked');
             window.location.href = '/content/base?b=' + this.maps[mapIndex].identifier;
+        },
+        set_visible: function(mapIndex) {
+            this.visible_maps[mapIndex] = true;
+            // this.maps[mapIndex].isVisible = true;
+        },
+        set_invisible: function(mapIndex) {
+            this.visible_maps[mapIndex] = false;
+            // this.maps[mapIndex].isVisible = false;
+        },
+        logstuff: function(text) {
+            console.log(text);
         }
-
+        // isVisible: function(mapIndex) {
+        //     return this.maps[mapIndex].isVisible;
+        // }
     },
     computed: {
-        maps_visible: function() {
+        visible_maps: function () {
             var result = [];
             for (var b = 0; b < this.maps.length; b++) {
-                //  Clone this.maps[b] without reference
-                var newmap = JSON.parse(JSON.stringify(this.maps[b]));
-                newmap.isVisible = true;
-                result.push(newmap);
-            }
-            return result;
-        },
-        maps_invisible: function() {
-            var result = [];
-            for (var b = 0; b < this.maps.length; b++) {
-                //  Clone this.maps[b] without reference
-                var newmap = JSON.parse(JSON.stringify(this.maps[b]));
-                newmap.isVisible = false;
-                result.push(newmap);
+                result.push(this.maps[b].isVisible);
             }
             return result;
         }
     },
-    mounted: function () {
-        this.$root.$on('filterSelection', (on, blockIndex, blocks, grav, plat, dplat, tramp) => {
-            console.log('Filter Selection');
+    mounted: function() {
+        this.$nextTick(function () {
+        this.$parent.$on('filterSelection', (on, blockIndex, blocks, grav, plat, dplat, tramp) => {
             for (var b = 0; b < this.maps.length; b++) {
                 // If the map is already invisible and on (=subselection), do nothing.
-                if (on && this.maps[b].isVisible === false) { continue; }
+                if (on && this.maps[b].isVisible === false) {
+                    continue;
+                }
 
                 // blockIndex -1 implies that not a block was toggled but a special property.
                 // If the map doesn't have a selected special property, deselect.
@@ -46,16 +49,21 @@ var vueBase = Vue.component('vueBase', {
                     (!this.maps[b].hasPlatform && plat) ||
                     (!this.maps[b].hasDoublePlatform && dplat) ||
                     (!this.maps[b].hasTrampoline && tramp)) {
-                        Vue.set(this.maps, b, this.maps_invisible[b]);
-                    }
+                    // Vue.set(this.maps, b, this.maps_invisible[b]);
+                    this.set_invisible(b);
+                }
 
-                if (blockIndex === -1 && on) { continue; }
+                if (blockIndex === -1 && on) {
+                    continue;
+                }
 
                 // Below, deselection/selection can only happen if the block in question is empty!
-                if (blockIndex !== -1 && this.maps[b].blocks[blockIndex] === "1") { continue; }
+                if (blockIndex !== -1 && this.maps[b].blocks[blockIndex] === "1") {
+                    continue;
+                }
 
                 if (on) {
-                    Vue.set(this.maps, b, this.maps_invisible[b]);
+                    this.set_invisible(b);
                 }
                 else {
                     var shouldEnable = true;
@@ -67,11 +75,11 @@ var vueBase = Vue.component('vueBase', {
                     }
                     if (shouldEnable) {
                         if (!(
-                            (!this.maps[b].hasGravity && grav) ||
-                            (!this.maps[b].hasPlatform && plat) ||
-                            (!this.maps[b].hasDoublePlatform && dplat) ||
-                            (!this.maps[b].hasTrampoline && tramp))) {
-                            Vue.set(this.maps, b, this.maps_visible[b]);
+                                (!this.maps[b].hasGravity && grav) ||
+                                (!this.maps[b].hasPlatform && plat) ||
+                                (!this.maps[b].hasDoublePlatform && dplat) ||
+                                (!this.maps[b].hasTrampoline && tramp))) {
+                            this.set_visible(b);
                         }
                     }
                 }
@@ -79,11 +87,11 @@ var vueBase = Vue.component('vueBase', {
 
             // It is faster to modify this.maps as non-reactive element and then force an update, than to make it reactive!
             this.$forceUpdate();
+            });
         });
-            this.$root.$on('clearSelection', () => {
-                console.log('Clear selection triggered');
+            this.$parent.$on('clearSelection', () => {
             for (var l = 0; l < this.maps.length; l++) {
-                Vue.set(this.maps, l, this.maps_visible[l]);
+                this.set_visible(l);
             }
 
             this.$forceUpdate();
@@ -91,7 +99,7 @@ var vueBase = Vue.component('vueBase', {
     },
     template: "<div>" +
     "<transition-group class='list-container' tag='p' name='list-complete'>" +
-    "<div @click='detail(mapIndex)' class='list-complete-item' v-bind:key='map.identifier' v-if='map.isVisible' v-for='(map, mapIndex) in maps'>" +
+    "<div @click='detail(mapIndex)' class='list-complete-item' v-bind:key='map.identifier' v-if='visible_maps[mapIndex]' v-for='(map, mapIndex) in maps'>" +
     "<div class='map-wrapper'>" +
     "<div class='map-modifier map-modifier-gravity'><span>{{ map.hasGravity ? 'G' : ' ' }}</span></div>" +
     "<div class='map-modifier map-modifier-trampoline'><span> {{ map.hasTrampoline ? 'T' : ' ' }}</span></div>" +
@@ -109,6 +117,9 @@ var vueBase = Vue.component('vueBase', {
 ////////////////////////////////////////////////
 
 var vueBigBase = Vue.component('vueBigBase', {
+    components: {
+        VueBigBaseChildBase: vueBase
+    },
     data: function () {
         return {
             blocks: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -128,25 +139,23 @@ var vueBigBase = Vue.component('vueBigBase', {
     },
     methods: {
         press: function (id) {
-            console.log("Press! id: " + id);
-            Vue.set(this.current_blocks, id, 1 - this.current_blocks[id]);
-            this.apply(this.current_blocks[id], id);
+            this.$set(this.blocks, id, 1 - this.blocks[id]);
+            this.apply(this.blocks[id], id);
         },
         clear: function () {
-            console.log("Clear");
-            for (var i = 0; i < this.current_blocks.length; i++) {
-                Vue.set(this.current_blocks, i, 0);
+            for (var i = 0; i < this.blocks.length; i++) {
+                Vue.set(this.blocks, i, 0);
             }
             this.gravity_on = false;
             this.platform_on = false;
             this.double_platform_on = false;
             this.trampoline_on = false;
-            this.$root.$emit('clearSelection');
+            this.$parent.$emit('clearSelection');
         },
         apply: function (on, blockIndex) {
-            console.log('Apply triggered. On is: ' + on);
-            this.$root.$emit('filterSelection', on, blockIndex, this.blocks, this.gravity_on, this.platform_on, this.double_platform_on, this.trampoline_on);
-        },
+            this.$parent.$emit('filterSelection', on, blockIndex, this.blocks, this.gravity_on, this.platform_on, this.double_platform_on, this.trampoline_on);
+        }
+        ,
         apply_gravity: function (on) {
             this.gravity_on = on;
             this.apply(on, -1);
@@ -321,7 +330,7 @@ var vm = new Vue({
     methods: {},
     computed: {},
     components: {
-        VueBase: vueBase,
+        // VueBase: vueBase,
         VueBigBase: vueBigBase,
         VueTrapIcon: vueTrapIcon,
         VueLayout: vueLayout,

@@ -17,7 +17,7 @@
     @endif
 
     @if ($detail)
-        <vue-base style='float: right' :maps="{{ $maps }}"></vue-base>
+        <vue-base style='float: right' :maps="{{ $maps }}" ref="vueBase"></vue-base>
     @endif
     <div>
         <h2>Bases
