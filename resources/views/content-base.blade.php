@@ -144,7 +144,7 @@
     @endif
 
     @php
-        $names = ['Lyca36', 'Alefire', 'fezzik_king', 'JayMonRabe'];
+        $names = ['Lyca36', 'Alefire', 'fezzik_king', 'BoBhaumik', 'Jyubi'];
     @endphp
     @include('includes.credits')
 @stop

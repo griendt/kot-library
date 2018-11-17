@@ -1,6 +1,6 @@
 <nav id="sidebar">
     <div class="sidebar-header">
-        <h3>Library</h3>
+        <h3></h3>
     </div>
 
     <ul class="ul-sidebar list-unstyled components">
@@ -8,7 +8,7 @@
         @php
             $bullets = [
                 route('home') => 'Home',
-                route('content.base') => 'Bases & Layouts',
+                route('content.base') => 'Bases',
                 route('content.info') => 'Game Information',
 //                route('content.pattern') => 'Patterns',
 //                '/content/saw' => 'Saw Jumps',
