@@ -16,6 +16,7 @@
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
     <script src="{{ asset('js/feedback.js') }}" defer></script>
     <script src="{{ asset('js/sidebar.js') }}" defer></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 
     <!-- Fonts -->
     {{--<link rel="dns-prefetch" href="https://fonts.gstatic.com">--}}

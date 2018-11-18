@@ -23,8 +23,8 @@ p {
     color: #fff;
     transition: all 0.3s;
     margin-right: 25px;
-    min-width: 160px;
-    max-width: 160px;
+    min-width: 100px;
+    max-width: 100px;
 }
 
 #sidebar .sidebar-header {

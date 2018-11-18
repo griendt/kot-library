@@ -19,12 +19,12 @@ footer {
     width: 100%;
 }
 
-a {
+a, ul li a {
     font-weight: bold;
     color: #1f6ff2;
 }
 
-a, a:hover, a:focus {
+a, li a, a:hover, a:focus, ul li a:hover, ul li a:focus {
     text-decoration: none;
     transition: all 0.3s;
 }
@@ -99,4 +99,26 @@ h2 {
 .progress-bar {
     border:  1px solid rgba(0, 0, 0, 0.5);
     overflow: hidden;
+}
+
+.ingredient {
+    height: 20px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+.throne {
+    height: 80px;
+    width: 80px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+img .footer-image {
+    clear: both;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    text-align: right;
+}
+mark {
+    color: #f2304a;
 }

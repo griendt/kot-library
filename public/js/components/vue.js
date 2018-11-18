@@ -313,6 +313,41 @@ var vueTab = Vue.component('tab', {
     },
 });
 
+var vueGemChanceProbability = Vue.component('gemChanceProbability', {
+    data: function () {
+        return {
+            percentage: 0
+        }
+    },
+    methods: {
+        isPercentage: function(input) {
+            if (isNaN(input)) return false;
+            var value = parseFloat(input);
+            if (value >= 0 && value <= 100) return true;
+            return false;
+        }
+    },
+    computed: {
+        res: function() {
+            if (!this.isPercentage(this.percentage)) {
+                return 0;
+            }
+            return Math.round(parseFloat(this.percentage) + (100 - parseFloat(this.percentage))/3);
+        }
+    },
+    template:
+    '<div>' +
+        '<div class="form-group form-inline">' +
+            '<div class="col-auto">' +
+                '<label class="control-label">Best Pick from Throne (%):</label>' +
+                '<input class="form-control" :class="{ \'is-valid\': isPercentage(percentage), \'is-invalid\': !isPercentage(percentage) }" v-model="percentage" />' +
+            '</div>' +
+        '</div>' +
+        '<div v-if="!isPercentage(percentage)"><ul><li>Enter a valid percentage</li></ul></div>' +
+        'The true chance to pick the best gem is: <h2 style="font-weight: bolder">{{ res }}%</h2><br>' +
+    '</div>'
+});
+
 var vueProbability = Vue.component('probability', {
     data: function() {
         return {
@@ -449,6 +484,10 @@ var vueProbability = Vue.component('probability', {
         '</div>'
 
 });
+
+var vueTip = Vue.component('tip', {
+   template: "<div><img style='margin-right: 20px' src='https://kotlib.net/storage/thief.png' class='ingredient'><slot></slot></div>"
+});
 //////////////////////////////////////////////////
 
 var vm = new Vue({
@@ -465,7 +504,9 @@ var vm = new Vue({
         VueTabs: vueTabs,
         VueExploit: vueExploit,
         // VueOrb: vueOrb,
-        VueProbability: vueProbability
+        VueProbability: vueProbability,
+        VueGemChanceProbability: vueGemChanceProbability,
+        VueTip: vueTip
     },
     ready: function () {
     }
