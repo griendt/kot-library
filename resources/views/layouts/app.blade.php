@@ -90,6 +90,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js"></script>
+    <script src="https://unpkg.com/vue-async-computed"></script>
     <script src="{{ asset('js/components/vue.js') }}"></script>
 </body>
 </html>

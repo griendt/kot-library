@@ -34,7 +34,6 @@ var vueBase = Vue.component('vueBase', {
         }
     },
     mounted: function() {
-        this.$nextTick(function () {
         this.$parent.$on('filterSelection', (on, blockIndex, blocks, grav, plat, dplat, tramp) => {
             for (var b = 0; b < this.maps.length; b++) {
                 // If the map is already invisible and on (=subselection), do nothing.
@@ -87,7 +86,6 @@ var vueBase = Vue.component('vueBase', {
 
             // It is faster to modify this.maps as non-reactive element and then force an update, than to make it reactive!
             this.$forceUpdate();
-            });
         });
             this.$parent.$on('clearSelection', () => {
             for (var l = 0; l < this.maps.length; l++) {
@@ -132,7 +130,7 @@ var vueBigBase = Vue.component('vueBigBase', {
     props: {
         // blocks: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
-    computed: {
+    asyncComputed: {
         current_blocks: function() {
             return this.blocks;
         }
@@ -153,7 +151,11 @@ var vueBigBase = Vue.component('vueBigBase', {
             this.$parent.$emit('clearSelection');
         },
         apply: function (on, blockIndex) {
-            this.$parent.$emit('filterSelection', on, blockIndex, this.blocks, this.gravity_on, this.platform_on, this.double_platform_on, this.trampoline_on);
+            var self = this;
+            var link = [this.blocks, this.gravity_on, this.platform_on, this.double_platform_on, this.trampoline_on];
+            return new Promise(function (resolve, reject) {
+                setTimeout(() => resolve(self.$parent.$emit('filterSelection', on, blockIndex, self.blocks, self.gravity_on, self.platform_on, self.double_platform_on, self.trampoline_on)), 200)
+            });
         }
         ,
         apply_gravity: function (on) {
@@ -311,16 +313,141 @@ var vueTab = Vue.component('tab', {
     },
 });
 
-var vueOrb = Vue.component('orb', {
-    template: "<div><img :src='url'/><slot></slot></div>",
-    created: function() {
-        this.url = 'traps/red_guard.png'
-    },
+var vueProbability = Vue.component('probability', {
     data: function() {
         return {
-            url: false
+            percentage: 0,
+            attempts: 0,
+            successes: 0,
+            binoms: [[1], [1],[1,2],[1,3]],
+            approximate: false
         }
-    }
+    },
+    methods: {
+        isPercentage: function(input) {
+            if (isNaN(input)) return false;
+            var value = parseFloat(input);
+            if (value > 0 && value <= 100) return true;
+            return false;
+        },
+        isInt: function(input) {
+            if (isNaN(input)) return false;
+            if (parseFloat(input) !== parseInt(input)) return false;
+            if (parseInt(input) < 0) return false;
+            return true;
+        },
+        log_binomial: function(n, k) {
+            if (n >= 0) {
+                return this.log_binomial_large(n, k);
+            }
+            var l = k;
+            if (l > n/2) { l = n-l; }
+            var s;
+            while (n >= this.binoms.length) {
+                s = this.binoms[this.binoms.length - 1].length;
+                var nextRow = [1];
+                for (var i=1; i < s; i++) {
+                    nextRow[i] = this.binoms[this.binoms.length-1][i-1] + this.binoms[this.binoms.length - 1][i];
+                }
+                if (this.binoms.length % 2 == 0) { nextRow[s] = 2*this.binoms[this.binoms.length-1][s-1]; }
+                this.binoms.push(nextRow);
+            }
+            return Math.log(this.binoms[n][l]);
+        },
+        log_factorial: function(n) {
+            var result = 0;
+            for (var i = 2; i <= n; i++) {
+                result += Math.log(i);
+            }
+            // console.log('Log fact of ' + n + ' is: ' + result);
+            return result;
+        },
+        log_binomial_large: function(n, k) {
+            var result =
+                this.log_factorial(n) -
+                this.log_factorial(k) -
+                this.log_factorial(n-k);
+            return result;
+        },
+
+        prob_result: function(p, a, s) {
+            var prob = null;
+            var zero_probs = 0;
+            var log_100 = Math.log(100);
+            if (
+                this.isPercentage(p) &&
+                // this.isInt(a) &&
+                // this.isInt(s) &&
+                parseInt(s) <= parseInt(a)
+            ) {
+                for (var i = 0; i <= s; i++) {
+                    var bin_log = this.log_binomial(parseInt(a), i);
+                    var prob1_log = i*(Math.log(parseFloat(p/100)));
+                    var prob2_log = (parseInt(a) - i)*(Math.log(parseFloat(1 - p/100)));
+                    var add_log = bin_log + prob1_log + prob2_log;
+                    var add = Math.exp(add_log);
+
+                    if (add === 0) {
+                        zero_probs +=1;
+                        if (zero_probs > 0.01*s) {
+                            this.approximate = true;
+                            return this.prob_result(p, a/2, s/2);
+                        }
+                        continue;
+                    }
+                    prob += Math.exp(add_log);
+                }
+                return prob;
+            }
+            return 0;
+        }
+    },
+    asyncComputed: {
+        res: {
+            get () {
+                var self = this;
+                var link = [this.percentage, this.attempts, this.successes];
+                return new Promise(
+                    function (resolve, reject) {
+                        setTimeout(() => resolve(Number(self.prob_result(self.percentage, self.attempts, self.successes).toFixed(4))), 100)
+                    }
+            );
+            },
+            default: 'Computing...'
+        }
+    },
+    template:
+        '<div><div class="form-group form-inline">' +
+            '<div class="col-auto">' +
+                '<label class="control-label">Trigger percentage (%):</label>' +
+                '<input class="form-control" :class="{ \'is-valid\': isPercentage(percentage), \'is-invalid\': !isPercentage(percentage) }" v-model="percentage" />' +
+            '</div>' +
+            '<div class="col-auto">' +
+                '<label class="control-label">Attempts:</label>' +
+                '<input class="form-control" :class="{ \'is-valid\': isInt(attempts), \'is-invalid\': !isInt(attempts) }" v-model="attempts" />' +
+            '</div>' +
+            '<div class="col-auto">' +
+                '<label class="control-label">Successes:</label>' +
+                '<input class="form-control" :class="{ \'is-valid\': isInt(successes) && parseInt(successes) <= parseInt(attempts), \'is-invalid\': !isInt(successes) || parseInt(successes) > parseInt(attempts) }" v-model="successes" />' +
+            '</div>' +
+        '</div>' +
+        '<div>' +
+            '<ul>' +
+                '<li v-if="!isPercentage(percentage)">Enter a valid percentage</span>' +
+                '<li v-if="!isInt(attempts)">Enter a non-negative number</li>' +
+                '<li v-if="!isInt(successes)">Enter a non-negative number</li>' +
+                '<li v-if="parseInt(attempts) < parseInt(successes)">Successes may not be larger than Attempts</li>' +
+            '</ul>' +
+        '</div>' +
+            '<div v-if="res !== null">' +
+                'Probability of getting this result or worse is: <h2 style="font-weight: bolder">{{ res*100 }}%</h2><br>' +
+                'Caution: Make sure your dataset is not <strong>skewed</strong>! If your dataset began retroactively after a bad series of attempts, this result will be inaccurate.' +
+            '</div>' +
+            '<div v-if="approximate">' +
+            'Caution: Result may be inaccurate up to a few percent due to large input numbers.' +
+            '</div>' +
+        '</div>'
+
 });
 //////////////////////////////////////////////////
 
@@ -337,7 +464,8 @@ var vm = new Vue({
         VueTab: vueTab,
         VueTabs: vueTabs,
         VueExploit: vueExploit,
-        VueOrb: vueOrb,
+        // VueOrb: vueOrb,
+        VueProbability: vueProbability
     },
     ready: function () {
     }

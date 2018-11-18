@@ -50,5 +50,9 @@ Route::post('/exploit/store', 'LayoutExploit@store')
 Route::post('/api/exploit/delete', 'LayoutExploit@delete')
     ->name('api.exploit.delete');
 
+Route::get('probability', function() {
+    return view('probability');
+})->name('probability');
+
 Route::get('/content/info', 'Info@index')
     ->name('content.info');
