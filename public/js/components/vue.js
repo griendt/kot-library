@@ -488,6 +488,12 @@ var vueProbability = Vue.component('probability', {
 var vueTip = Vue.component('tip', {
    template: "<div><img style='margin-right: 20px' src='https://kotlib.net/storage/thief.png' class='ingredient'><slot></slot></div>"
 });
+
+var vueIncomplete = Vue.component('incomplete', {
+    template: "<div style='min-height: 60px' class='warn-incomplete'><div><img style='margin-right: 20px; float: left' src='https://kotlib.net/storage/inspect.png'></div><div>" +
+    "This section is incomplete! If you have any reliable information to complete this page, contact me on Telegram: <a href='https://t.me/alucen'>@alucen</a>. Your help will be greatly appreciated.</div>" +
+    "</div>"
+})
 //////////////////////////////////////////////////
 
 var vm = new Vue({
@@ -506,7 +512,8 @@ var vm = new Vue({
         // VueOrb: vueOrb,
         VueProbability: vueProbability,
         VueGemChanceProbability: vueGemChanceProbability,
-        VueTip: vueTip
+        VueTip: vueTip,
+        VueIncomplete: vueIncomplete
     },
     ready: function () {
     }

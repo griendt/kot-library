@@ -3,7 +3,37 @@
     Brave Heart
 @overwrite
 @section('card-detail')
-    {!! throne('braveheart') !!} <mark>Brave Heart</mark> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-
-    Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia.
+    <div style="min-height: 80px">{!! throne('braveheart') !!} <mark>Brave Heart</mark> is the first throne that is <em>crafted</em> in the game. You obtain it almost immediately after starting out with <mark>Rough Cut</mark>, as it is part of the tutorial. <span class="geffi">Geffi</span> will make you craft it after completing your first ritual in your second base.</div><hr>
+    <ul>
+        <li>
+            <u>Level 1</u>: Free to craft.
+            <ul>
+                <li>{!! res('health-bonus') !!}<mark>Health: </mark> 60 <span class="diff">(+20)</span></li>
+            </ul>
+        </li>
+        <li>
+            <u>Level 2</u>: Costs {!! res('gold') !!}12000 to upgrade.
+            <ul>
+                <li>{!! res('health-bonus') !!}<mark>Health: </mark> 70 <span class="diff">(+10)</span></li>
+            </ul>
+        </li>
+        <li>
+            <u>Level 3</u>: Costs {!! res('gold') !!}15000 to upgrade.
+            <ul>
+                <li>{!! res('health-bonus') !!}<mark>Health: </mark> 80 <span class="diff">(+10)</span></li>
+            </ul>
+        </li>
+        <li>
+            <u>Level 4</u>: Costs {!! res('gold') !!}17000 to upgrade.
+            <ul>
+                <li>{!! res('health-bonus') !!}<mark>Health: </mark> 90 <span class="diff">(+10)</span></li>
+            </ul>
+        </li>
+        <li>
+            <u>Level 5</u>: Costs {!! res('gold') !!}20000 to upgrade.
+            <ul>
+                <li>{!! res('health-bonus') !!}<mark>Health: </mark> 100 <span class="diff">(+10)</span></li>
+            </ul>
+        </li>
+    </ul>
 @overwrite
