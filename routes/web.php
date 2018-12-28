@@ -36,6 +36,12 @@ Route::get('stats', 'StatsController@index')
 Route::get('/content/base', 'Base@index')
     ->name('content.base');
 
+Route::get('/content/info', 'Info@index')
+    ->name('content.info');
+
+Route::get('/content/guides', 'Guide@index')
+    ->name('content.guides');
+
 Route::get('/content/pattern', function() {
     return redirect()->route('home'); })
     ->name('content.pattern');
@@ -54,5 +60,6 @@ Route::get('probability', function() {
     return view('probability');
 })->name('probability');
 
-Route::get('/content/info', 'Info@index')
-    ->name('content.info');
+Route::get('external/telegram', function() {
+    return view('external.telegram');
+})->name('external.telegram');

@@ -19,7 +19,7 @@ p {
 
 #sidebar {
     /* don't forget to add all the previously mentioned styles here too */
-    background: #062F4F; /* #D58673 */
+    background: #6a4362; /* #3a1f5b; */
     color: #fff;
     transition: all 0.3s;
     margin-right: 25px;
@@ -29,13 +29,13 @@ p {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #052840;
+    background: #4c3046;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #052840;
-    box-shadow: -2px 4px 4px 0 #052840;
+    border-bottom: 1px solid #4c3046;
+    box-shadow: -2px 4px 4px 0 #4c3046;
 }
 
 #sidebar ul p {
@@ -49,16 +49,16 @@ p {
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #D58673;
+    color: #4c3046;
     background: #fff;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #fff;
-    background: #b26e5e;
+    color: #4c3046;
+    background: #f4e8d8;
 }
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #cc7f6d;
+    background: #f4e8d8;
 }

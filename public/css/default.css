@@ -21,7 +21,7 @@ footer {
 
 a, ul li a {
     font-weight: bold;
-    color: #1f6ff2;
+    color: #65919a;
 }
 
 a, li a, a:hover, a:focus, ul li a:hover, ul li a:focus {
@@ -34,9 +34,9 @@ a:hover, a:focus {
 }
 
 .credits {
-    float: right;
+    float: left;
     border-radius: 4px;
-    border: 1px dotted #ddd;
+    border: 1px dotted #888;
     padding: 4px;
 }
 
@@ -44,20 +44,16 @@ a:hover, a:focus {
     margin: 4px;
 }
 
-/*@font-face {*/
-    /*font-family: 'lacuna';*/
-    /*src: url('https://kotlib.net/fonts/lacuna_regular_macroman/open-sans-v15-latin-regular.woff') format('woff');*/
-    /*font-weight: normal;*/
-    /*font-style: normal;*/
-    /*font-size: 40px;*/
-/*}*/
-
 div {
-    font-family: 'Rubik', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    font-weight: bolder;
+    font-family: 'Rubik:300', sans-serif;
+    /*-webkit-font-smoothing: antialiased;*/
+    font-weight: normal;
     font-size: 15px;
     color: #222;
+}
+
+b {
+    font-weight: bold;
 }
 
 .table-container {
@@ -67,6 +63,8 @@ div {
     margin: 4px;
     width: min-content;
     float: left;
+    align-content: left;
+    box-shadow: 2px 2px 4px black;
 }
 
 .table {
@@ -129,6 +127,12 @@ mark {
     color: #f00;
 }
 
+.definition {
+    background-color: #e3fcf8;
+    color: #080;
+    display: inline;
+}
+
 .geffi {
     color: #a0f;
 }
@@ -140,4 +144,27 @@ mark {
     margin: 4px;
     padding: 4px;
     background: rgba(200, 0.0, 0.0, 0.3);
+}
+
+.warn-wip {
+    color: blue;
+    border: 1px solid blue;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 4px;
+    background: rgba(0.0, 0.0, 200.0, 0.2);
+}
+
+.navbar-brand {
+    color: #4c3046;
+}
+
+body {
+    background: url("../bg/bg3.png") no-repeat fixed left top;
+    background-size: 100% 100%;
+}
+
+.table-wrapper tr td {
+    text-align: left;
+    vertical-align: top;
 }

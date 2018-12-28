@@ -127,10 +127,7 @@ var vueBigBase = Vue.component('vueBigBase', {
             trampoline_on: false
         }
     },
-    props: {
-        // blocks: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    },
-    asyncComputed: {
+    computed: {
         current_blocks: function() {
             return this.blocks;
         }
@@ -142,7 +139,7 @@ var vueBigBase = Vue.component('vueBigBase', {
         },
         clear: function () {
             for (var i = 0; i < this.blocks.length; i++) {
-                Vue.set(this.blocks, i, 0);
+                this.$set(this.blocks, i, 0);
             }
             this.gravity_on = false;
             this.platform_on = false;
@@ -154,7 +151,7 @@ var vueBigBase = Vue.component('vueBigBase', {
             var self = this;
             var link = [this.blocks, this.gravity_on, this.platform_on, this.double_platform_on, this.trampoline_on];
             return new Promise(function (resolve, reject) {
-                setTimeout(() => resolve(self.$parent.$emit('filterSelection', on, blockIndex, self.blocks, self.gravity_on, self.platform_on, self.double_platform_on, self.trampoline_on)), 200)
+                setTimeout(() => resolve(self.$parent.$emit('filterSelection', on, blockIndex, self.blocks, self.gravity_on, self.platform_on, self.double_platform_on, self.trampoline_on)), 10)
             });
         }
         ,
@@ -267,7 +264,7 @@ var vueExploit = Vue.component('vueExploit', {
 var vueTabs = Vue.component('tabs', {
     template: "<div>" +
     "<ul class='nav nav-tabs'>" +
-    "<li v-for=\"(tab, index) in tabs\" class='nav-item'><a href='#' class='nav-link' :class=\"{ active: (activeTab === tab || (activeTab === '' && index === 0)) }\" @click=\"activate(tab)\">{{ tab }}</a></li>" +
+    "<li v-for=\"(tab, index) in tabs\" class='nav-item'><a class='nav-link' :class=\"{ active: (activeTab === tab ) }\" @click=\"activate(tab)\">{{ tab }}</a></li>" +
     "</ul><slot></slot>" +
     "</div>",
     data: function() {
@@ -279,11 +276,18 @@ var vueTabs = Vue.component('tabs', {
     methods: {
         activate: function(tab) {
             this.activeTab = tab;
+            document.location.hash = "#" + tab;
             this.$emit('activateTab', tab);
         }
     },
     created: function() {
-        this.$emit('activateTab', this.tabs[0]);
+        // activeTab = window.location.hash.substr(1);
+        // if (activeTab == '') activeTab = 'Thrones'
+        // // setTimeout(function () { this.activate(activeTab) }, 500)
+        // var self = this
+        // setTimeout(function() { self.activate(activeTab) }, 100)
+        // this.activate(activeTab);
+        // this.$emit('activateTab', this.tabs[0]);
     }
 });
 
@@ -293,10 +297,11 @@ var vueTab = Vue.component('tab', {
 
     created: function() {
         var self = this;
-        if ((typeof this.selected !== 'undefined' && this.selected === '') || (this.$parent.$data.tabs.length === 0)) {
+        if ((this.$parent.$data.tabs.length === 0 && window.location.hash.substr(1) == '') || decodeURIComponent(window.location.hash.substr(1)) == this.label) {
             this.$parent.$data.activeTab = this.label;
             this.visible = true;
         }
+
         this.$parent.$data.tabs.push(this.label);
         this.$parent.$on('activateTab', function(tab) {
             if (self.label === tab) {
@@ -355,7 +360,7 @@ var vueProbability = Vue.component('probability', {
             attempts: 0,
             successes: 0,
             binoms: [[1], [1],[1,2],[1,3]],
-            approximate: false
+            approximate: false,
         }
     },
     methods: {
@@ -437,19 +442,24 @@ var vueProbability = Vue.component('probability', {
             return 0;
         }
     },
-    asyncComputed: {
-        res: {
-            get () {
-                var self = this;
-                var link = [this.percentage, this.attempts, this.successes];
-                return new Promise(
-                    function (resolve, reject) {
-                        setTimeout(() => resolve(Number(self.prob_result(self.percentage, self.attempts, self.successes).toFixed(4))), 100)
-                    }
-            );
-            },
-            default: 'Computing...'
+    computed: {
+        res: function () {
+            return Number(this.prob_result(this.percentage, this.attempts, this.successes).toFixed(2))
         }
+    },
+    watch: {
+        // attempts: function(val) {
+        //     const result = 0;
+        //     return Promise.resolve(function () {
+        //         console.log("Doing resolve")
+        //         result = this.prob_result(this.percentage, val, this.successes)
+        //         console.log(result)
+        //     }).then(function (data) {
+        //         this.res = data.result
+        //         console.log("Result is:")
+        //         console.log(data)
+        //     });
+        // }
     },
     template:
         '<div><div class="form-group form-inline">' +
@@ -489,11 +499,24 @@ var vueTip = Vue.component('tip', {
    template: "<div><img style='margin-right: 20px' src='https://kotlib.net/storage/thief.png' class='ingredient'><slot></slot></div>"
 });
 
+var vueDef = Vue.component('def', {
+    props: ['hover']
+    ,
+    template: "<div class='definition'><slot></slot><span class='tooltip'>{{ hover }}</span></div>"
+})
+
 var vueIncomplete = Vue.component('incomplete', {
     template: "<div style='min-height: 60px' class='warn-incomplete'><div><img style='margin-right: 20px; float: left' src='https://kotlib.net/storage/inspect.png'></div><div>" +
     "This section is incomplete! If you have any reliable information to complete this page, contact me on Telegram: <a href='https://t.me/alucen'>@alucen</a>. Your help will be greatly appreciated.</div>" +
     "</div>"
-})
+});
+
+var vueWip = Vue.component('wip', {
+    template: "<div style='min-height: 60px' class='warn-wip'><div><img style='margin-right: 20px; float: left' src='https://kotlib.net/storage/inspect.png'></div><div>" +
+    "This section is a <b>work in progress</b>! The information listed here is not yet complete, but will be in due time.</div>" +
+    "</div>"
+});
+
 //////////////////////////////////////////////////
 
 var vm = new Vue({
@@ -513,7 +536,8 @@ var vm = new Vue({
         VueProbability: vueProbability,
         VueGemChanceProbability: vueGemChanceProbability,
         VueTip: vueTip,
-        VueIncomplete: vueIncomplete
+        VueIncomplete: vueIncomplete,
+        VueWip: vueWip
     },
     ready: function () {
     }

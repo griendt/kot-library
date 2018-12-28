@@ -2,12 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=640">
+    {{--<meta name="viewport" content="width=640">--}}
+    <meta name="theme-color" content="#e8dae5" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'King of Thieves Library') }}</title>
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -22,7 +23,7 @@
     {{--<link rel="dns-prefetch" href="https://fonts.gstatic.com">--}}
     {{--<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">--}}
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -91,7 +92,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js"></script>
-    <script src="https://unpkg.com/vue-async-computed"></script>
     <script src="{{ asset('js/components/vue.js') }}"></script>
 </body>
 </html>

@@ -9,10 +9,10 @@
         <li>
             <u>Level 1</u>: Costs {!! res('gold') !!}190000 {!! res('mush') !!}2 {!! res('eye') !!}1 to craft.
             <ul>
-                <li>{!! res('health-bonus') !!}<mark>Health: </mark> 230 <span class="diff">(+?)</span></li>
-                <li>{!! res('gold-bonus') !!}<mark>Gold Bonus: </mark> 55% <span class="diff">(+?)</span></li>
-                <li>{!! res('steal-bonus') !!}<mark>Steal Bonus: </mark> 45% <span class="diff">(+?)</span></li>
-                <li>{!! res('best-pick-bonus') !!}<mark>Best Pick Bonus: </mark> 35% <span class="diff">(+?)</span></li>
+                <li>{!! res('health-bonus') !!}<mark>Health: </mark> 230 <span class="diff">(+10)</span></li>
+                <li>{!! res('gold-bonus') !!}<mark>Gold Bonus: </mark> 55% <span class="diff">(+2%)</span></li>
+                <li>{!! res('steal-bonus') !!}<mark>Steal Bonus: </mark> 45% <span class="diff">(+2%)</span></li>
+                <li>{!! res('best-pick-bonus') !!}<mark>Best Pick Bonus: </mark> 35% <span class="diff">(+3%)</span></li>
             </ul>
         </li>
         <li>

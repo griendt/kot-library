@@ -4,7 +4,7 @@
 @overwrite
 @section('card-detail')
     <mark>Thrones</mark> may provide a thief with four different characteristic traits. Each throne, besides <mark>Rough Cut</mark>, needs to be crafted before it may be used.
-    Crafting and upgrading requires <mark>magic incgredients</mark> {!! res('leaf') !!} {!! res('dust') !!} {!! res('mush') !!} {!! res('eye') !!}. It is possible to use <mark>orbs</mark> {!! res('orb') !!} as well, but this is highly discouraged due to the high prices in-game for the magic ingredients.<hr>
+    Crafting and upgrading requires <mark>magic inFogredients</mark> {!! res('leaf') !!} {!! res('dust') !!} {!! res('mush') !!} {!! res('eye') !!}. It is possible to use <mark>orbs</mark> {!! res('orb') !!} as well, but this is highly discouraged due to the high prices in-game for the magic ingredients.<hr>
     Thrones have four essential properties:
     <ul>
         <li>
