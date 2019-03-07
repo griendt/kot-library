@@ -280,15 +280,7 @@ var vueTabs = Vue.component('tabs', {
             this.$emit('activateTab', tab);
         }
     },
-    created: function() {
-        // activeTab = window.location.hash.substr(1);
-        // if (activeTab == '') activeTab = 'Thrones'
-        // // setTimeout(function () { this.activate(activeTab) }, 500)
-        // var self = this
-        // setTimeout(function() { self.activate(activeTab) }, 100)
-        // this.activate(activeTab);
-        // this.$emit('activateTab', this.tabs[0]);
-    }
+    created: function() {}
 });
 
 var vueTab = Vue.component('tab', {
@@ -500,9 +492,18 @@ var vueTip = Vue.component('tip', {
 });
 
 var vueDef = Vue.component('def', {
-    props: ['hover']
-    ,
-    template: "<div class='definition'><slot></slot><span class='tooltip'>{{ hover }}</span></div>"
+    props: ['d'],
+    data: function () {
+        return {
+            titles: {
+                lj: 'The final jump to be taken for the saw jump; the jump before the actual jump over the saw itself.',
+                pd: 'A jump is considered path dependent if not all combinations of jumps prior to the jump can lead to a successful execution of the jump.',
+                sj: 'A jump where a saw is typically placed at the edge of a block or platform, allowing the thief only a very tiny space to jump over the Saw.',
+                sjp: 'A sequence of jumps that can be taken such that the saw jump can be completed successfully.',
+            }
+        };
+    },
+    template: "<div class='definition'><span :title=\" titles[d] \"><slot></slot></span></div>"
 })
 
 var vueIncomplete = Vue.component('incomplete', {

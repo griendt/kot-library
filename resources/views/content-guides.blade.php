@@ -6,7 +6,7 @@
     the carreer of your account.
     <tabs>
         <tab label="Saw Jump Academy" class="tab-pane fade show">
-            <wip></wip>
+            @include('includes.guides.sja.intro')
         </tab>
         <tab label="Guild Strategy" class="tab-pane fade show">
             <wip></wip>

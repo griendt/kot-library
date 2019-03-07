@@ -94,6 +94,11 @@ h2 {
     vertical-align: text-top;
 }
 
+.progress {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    height: 24px;
+}
 .progress-bar {
     border:  1px solid rgba(0, 0, 0, 0.5);
     overflow: hidden;
@@ -167,4 +172,27 @@ body {
 .table-wrapper tr td {
     text-align: left;
     vertical-align: top;
+}
+
+[title] {
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+    border-radius:2px;
+    position: relative;
+}
+body.touched [title] > * {
+    user-select: none;
+}
+body.touched [title]:hover > * {
+    user-select: auto
+}
+body.touched [title]:hover:after {
+    position: absolute;
+    top: 100%;
+    right: -10%;
+    content: attr(title);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    box-shadow: 1px 1px 3px;
+    padding: 0.3em;
+    z-index: 1;
 }
