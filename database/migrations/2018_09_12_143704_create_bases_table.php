@@ -18,7 +18,7 @@ class CreateBasesTable extends Migration
             $table->timestamps();
             $table->integer('identifier')->unique();
             $table->string('map');
-            $table->string('name');
+            $table->string('name')->nullable()->default(null);
             $table->boolean('hasGravity')->default(false);
             $table->boolean('hasTrampoline')->default(false);
             $table->boolean('hasPlatform')->default(false);

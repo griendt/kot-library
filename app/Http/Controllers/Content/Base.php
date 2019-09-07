@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Content;
 
+use App\Http\Controllers\Controller;
 use App\Trap;
 use Illuminate\Http\Request;
 use App\Base as BaseModel;
@@ -34,9 +35,9 @@ class Base extends Controller
             ];
         }
 
-        if (empty ($maps)) {
-            return redirect()->route('home');
-        }
+//        if (empty ($maps)) {
+//            return redirect()->route('home');
+//        }
 
         $layouts = [];
         foreach (\App\Layout::whereBaseIdentifier(\Request::get('b'))->orderByDesc('created_at')->get() as $layout) {

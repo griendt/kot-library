@@ -33,27 +33,27 @@ Route::get('contact', function() {
 Route::get('stats', 'StatsController@index')
     ->name('stats');
 
-Route::get('/content/base', 'Base@index')
+Route::get('/content/base', 'Content\Base@index')
     ->name('content.base');
 
-Route::get('/content/info', 'Info@index')
+Route::get('/content/info', 'Content\Info@index')
     ->name('content.info');
 
-Route::get('/content/guides', 'Guide@index')
+Route::get('/content/guides', 'Content\Guide@index')
     ->name('content.guides');
 
 Route::get('/content/pattern', function() {
     return redirect()->route('home'); })
     ->name('content.pattern');
 
-Route::post('/layout/store', 'Layout@store')
+Route::post('/layout/store', 'Content\Layout@store')
     ->name('layout.store');
-Route::post('/api/layouts/delete', 'Layout@delete')
+Route::post('/api/layouts/delete', 'Content\Layout@delete')
     ->name('api.layouts.delete');
 
-Route::post('/exploit/store', 'LayoutExploit@store')
+Route::post('/exploit/store', 'Content\LayoutExploit@store')
     ->name('exploit.store');
-Route::post('/api/exploit/delete', 'LayoutExploit@delete')
+Route::post('/api/exploit/delete', 'Content\LayoutExploit@delete')
     ->name('api.exploit.delete');
 
 Route::get('probability', function() {
