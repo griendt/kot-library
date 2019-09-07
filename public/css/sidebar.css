@@ -29,13 +29,13 @@ p {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #4c3046;
+    background: #6a4362;
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #4c3046;
-    box-shadow: -2px 4px 4px 0 #4c3046;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0, 0.3);
+    box-shadow: -2px 4px 4px 0 rgba(0,0,0, 0.2);
 }
 
 #sidebar ul p {
@@ -44,17 +44,17 @@ p {
 }
 
 #sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
+    padding-left: 10px;
+    padding-top: 3px;
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #4c3046;
+    color: #d0d0fe;
     background: #fff;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
-    color: #4c3046;
+    color: #d0d0fe;
     background: #f4e8d8;
 }
 ul ul a {

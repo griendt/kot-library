@@ -35,10 +35,6 @@ class Base extends Controller
             ];
         }
 
-//        if (empty ($maps)) {
-//            return redirect()->route('home');
-//        }
-
         $layouts = [];
         foreach (\App\Layout::whereBaseIdentifier(\Request::get('b'))->orderByDesc('created_at')->get() as $layout) {
             $layout->design_picture = asset($layout->design_picture);

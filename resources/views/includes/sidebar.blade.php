@@ -11,11 +11,7 @@
                 route('content.base') => 'Bases',
                 route('content.info') => 'Info',
                 route('content.guides') => 'Guides',
-//                route('content.pattern') => 'Patterns',
-//                '/content/saw' => 'Saw Jumps',
-//                '/content/game' => 'Game Information',
-//                '/external/forum' => 'Forum Threads',
-                route('external.telegram') => 'Telegram Chats',
+                route('external.telegram') => 'Telegram',
                 route('stats') => 'Site Stats',
                 route('about') => 'About',
         ];
