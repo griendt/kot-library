@@ -10,7 +10,7 @@ class RolesTableSeeder extends Seeder {
     /**
     * Run the seed.
     *
-    **/    
+    **/
     public function run()
     {
         DB::table('roles')->delete();
@@ -28,7 +28,7 @@ class RolesTableSeeder extends Seeder {
             Role::create($role);
         }
 
-        $aluce = User::whereName('Aluce')->first();
+        $aluce = User::whereUserName('Aluce')->first();
         if ($aluce) {
             UserRole::create([
                 'user_id' => $aluce->id,
