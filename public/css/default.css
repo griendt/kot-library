@@ -165,7 +165,7 @@ mark {
 }
 
 body {
-    background: url("../bg/bg3.png") no-repeat fixed left top;
+    background: url("../bg/bg4.png") no-repeat fixed left top;
     background-size: 100% 100%;
 }
 
@@ -196,3 +196,4 @@ body.touched [title]:hover:after {
     padding: 0.3em;
     z-index: 1;
 }
+

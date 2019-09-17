@@ -5915,7 +5915,7 @@ input[type="button"].btn-block {
 .list-group-item {
   position: relative;
   display: block;
-  padding: 0.75rem 1.25rem;
+  padding: 8px;
   margin-bottom: -1px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -10472,7 +10472,7 @@ a.text-dark:focus {
 }
 
 .navbar-laravel {
-    background-color: #222;
+    background-color: #485159;
     padding: 2px;
     color: #ddd;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
