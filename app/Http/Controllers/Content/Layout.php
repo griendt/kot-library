@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Content;
 
+use App\Http\Controllers\Controller;
 use App\Trap;
 use Illuminate\Http\Request;
 use App\Layout as LayoutModel;
